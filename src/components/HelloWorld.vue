@@ -1,122 +1,121 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa"
-          target="_blank"
-          rel="noopener"
-          >pwa</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+  <div>
+    <div class="loginBox">
+        <form class="" action="index.html" method="post">
+          <div id="inputContainer">
+            <input
+              id="input"
+              v-model="user"
+              type="String"
+              name="input"
+            >
+            <span id="floatingLabel" :class="{notfloating: user === ''}">Usuario</span>
+          </div>
+          <div id="inputContainer">
+            <input
+              id="input"
+              v-model="senha"
+              type="Password"
+              name="input"
+            >
+            <span id="floatingLabel" :class="{notfloating: senha === ''}">Senha</span>
+          </div>
+          <button class="loginButton" type="button" name="button">Login</button>
+        </form>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "HelloWorld",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      user: '',
+      senha: ''
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+.erro{
+  outline: none;
+  border-bottom: solid 2px red !important;
+  padding-bottom: 7px !important;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+#hint{
+  position: absolute;
+  bottom: -20px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+#inputContainer{
+  position: relative;
+  margin-bottom: 25px;
 }
-a {
-  color: #42b983;
+#input{
+  box-sizing: content-box;
+  transition: 0.3s;
+  color:#000000;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #9E9E9E;
+  width: 100%;
+  font-size: 16px;
+}
+#input::placeholder{
+  color: #9E9E9E;
+  font-size: 16px;
+}
+.notfloating {
+  top: 0 !important;
+  font-size: 16px !important;
+}
+#input:focus ~ #floatingLabel{
+  top: -20px !important;
+  left: 0 !important;
+  font-size: 12px !important;
+  opacity: 1;
+}
+#input:not(:focus):valid ~ #floatingLabel
+{
+  top: -20px;
+  left: 0;
+  font-size: 12px;
+  opacity: 1;
+}
+#input:focus{
+  outline: none;
+  border-bottom:solid 2px #51ff74;
+  padding-bottom: 4px;
+}
+#floatingLabel{
+  color: #9E9E9E;
+  font-size: 16px;
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  transition: 0.2s ease all;
+  line-height: 15px;
+}
+.loginButton {
+  background-color: #51ff74;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 22px;
+  color: white;
+}
+.loginBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%,-50%);
 }
 </style>
